@@ -15,7 +15,7 @@ public class Label extends Frame implements ActionListener{
         setSize(400,400);  
         setLayout(null);  
         setVisible(true);  
-    }  z
+    }  
     public void actionPerformed(ActionEvent e) {  
         try{  
         String host=tf.getText();  
@@ -24,5 +24,6 @@ public class Label extends Frame implements ActionListener{
         }catch(Exception ex){System.out.println(ex);}  
     }  
     public static void main(String[] args) {  
-        new Label();  
-    } }  
+        new Label();
+    } 
+}
