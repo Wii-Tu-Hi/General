@@ -2,9 +2,8 @@ import java.util.*;
 
 public class Sudoku {
     public static final Scanner keyboard = new Scanner(System.in);
-
+    
     public static void main(String[] args) {
-
         System.out.println("WELCOME! Who is playing?");
         String player1 = keyboard.nextLine();
 
