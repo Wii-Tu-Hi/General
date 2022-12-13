@@ -15,6 +15,7 @@ public class TextAreaExample extends JFrame implements ActionListener{
         b.setBounds(100,300,120,30);
         b.addActionListener(this);
         add(l1); add(l2); add(area); add(b);
+        setTitle("Word Counter");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(450,450);
         setLayout(null);
