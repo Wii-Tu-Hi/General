@@ -12,7 +12,7 @@ class TicTacSwing implements ActionListener
     JButton[] bton = new JButton[9];
     int chance_flag = 0;
     Random random = new Random();
-    boolean pl1_chance;
+    boolean pl1_chance, winner = true;
     
     // Creating class constructor for creating grid
     TicTacSwing() 
@@ -20,7 +20,7 @@ class TicTacSwing implements ActionListener
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(500, 500);
         frame.getContentPane().setBackground(new Color(250, 184, 97));
-        frame.setTitle("Tic Tac Toe Game in Swing");
+        frame.setTitle("Tic Tac Toe");
         frame.setLayout(new BorderLayout());
         frame.setVisible(true);
 
@@ -28,7 +28,6 @@ class TicTacSwing implements ActionListener
         textfield.setForeground(new Color(255,0,0));
         textfield.setFont(new Font("Serif", Font.BOLD, 75));
         textfield.setHorizontalAlignment(JLabel.CENTER);
-        textfield.setText("Tic Tac Toe Game in Swing");
         textfield.setOpaque(true);
 
         t_panel.setLayout(new BorderLayout());
@@ -44,7 +43,43 @@ class TicTacSwing implements ActionListener
             bton[i].setFont(new Font("Serif", Font.BOLD, 120));
             bton[i].setFocusable(false);
             bton[i].addActionListener(this);
-            bton[i].setBackground(Color.MAGENTA);
+            bton[i].setBackground(Color.magenta);
+            bton[i].addMouseListener(new MouseListener() {
+                public void mouseEntered(MouseEvent e) {
+                    for (int i = 0; i < 9; i++) {
+                        if (e.getSource() == bton[i]) {
+                            if (bton[i].getText() == "") {
+                                bton[i].setBackground(Color.lightGray);
+                            }
+                        }
+                    } 
+                }
+                public void mouseExited(MouseEvent e) {
+                    for (int i = 0; i < 9; i++) {
+                        if (e.getSource() == bton[i]) {
+                                bton[i].setBackground(Color.magenta);
+                        }
+                    } 
+                }
+
+                public void mouseClicked(MouseEvent e) {
+                    for (int i = 0; i < 9; i++) {
+                        if (e.getSource() == bton[i]) {
+                                bton[i].setBackground(Color.magenta);
+                        }
+                    } 
+                }
+
+                
+                public void mousePressed(MouseEvent e) {
+                    
+                }
+
+                
+                public void mouseReleased(MouseEvent e) {
+                    
+                }
+            });
         }
         
         t_panel.add(textfield);
@@ -60,7 +95,7 @@ class TicTacSwing implements ActionListener
         try 
         {
             textfield.setText("Loading....");
-            Thread.sleep(4000);
+            Thread.sleep(1000);
         } 
         catch (InterruptedException e) 
         {
@@ -80,11 +115,18 @@ class TicTacSwing implements ActionListener
         }
     }
     
-    public void gameOver(String s)
+    public void gameOver(String s, boolean w)
     {
+        final ImageIcon iconW = new ImageIcon("aa.png");
+        final ImageIcon icon = new ImageIcon("bb.png");
+        int n;
         chance_flag = 0;
-        Object[] option={"Restart","Exit"};
-        int n=JOptionPane.showOptionDialog(frame, "Game Over\n"+s,"Game Over", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, option, option[0]);
+        Object[] option={"Yes","No"};
+        if (w){
+            n=JOptionPane.showOptionDialog(frame, s+"\nPlay Again?","Game Over!", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, iconW, option, option[0]);
+        } else {
+            n=JOptionPane.showOptionDialog(frame, s+"\nPlay Again?","Game Over!", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, icon, option, option[0]);
+        }
         if(n==0)
         {
             frame.dispose();
@@ -167,7 +209,8 @@ class TicTacSwing implements ActionListener
         else if(chance_flag==9) 
         {
             textfield.setText("Game Draw!!");
-             gameOver("Game Draw!!");
+            winner = false;
+             gameOver("It's a tie!", winner);
         }
     }
 
@@ -180,10 +223,10 @@ class TicTacSwing implements ActionListener
 
         for (int i = 0; i < 9; i++) 
         {
-            bton[i].setEnabled(false);
+            bton[i].setEnabled(true);
         }
         textfield.setText("Player X wins");
-        gameOver("Player X Wins");
+        gameOver("Player X Wins!", winner);
     }
 
     // Method to print that Player O wins
@@ -198,7 +241,7 @@ class TicTacSwing implements ActionListener
             bton[i].setEnabled(false);
         }
         textfield.setText("Player O Wins");
-        gameOver("Player O Wins");
+        gameOver("Player O Wins!", winner);
     }
     
     // Method for performing action after every turn
