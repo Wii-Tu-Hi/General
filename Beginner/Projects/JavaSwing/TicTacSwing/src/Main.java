@@ -2,6 +2,14 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 import javax.swing.*;
+// Driver code
+public class Main 
+{
+    public static void main(String[] args) throws Exception 
+    {
+       new TicTacSwing();
+    }
+}
 
 class TicTacSwing implements ActionListener 
 {  
@@ -278,14 +286,5 @@ class TicTacSwing implements ActionListener
                 }
             }
         }
-    }
-}
-
-// Driver code
-public class Main 
-{
-    public static void main(String[] args) throws Exception 
-    {
-       new TicTacSwing();
     }
 }
