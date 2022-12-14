@@ -2,13 +2,17 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 import javax.swing.*;
-
-public class Main {
-    public static void main(String[] args) throws Exception {
+// Driver code
+public class Main 
+{
+    public static void main(String[] args) throws Exception 
+    {
        new TicTacSwing();
     }
 }
-class TicTacSwing implements ActionListener {  
+
+class TicTacSwing implements ActionListener 
+{  
     JFrame frame = new JFrame();
     JPanel t_panel = new JPanel();
     JPanel bt_panel = new JPanel();
@@ -18,7 +22,9 @@ class TicTacSwing implements ActionListener {
     Random random = new Random();
     boolean pl1_chance, winner = true;
     
-    TicTacSwing() {
+    // Creating class constructor for creating grid
+    TicTacSwing() 
+    {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(500, 500);
         frame.getContentPane().setBackground(new Color(250, 184, 97));
@@ -38,7 +44,8 @@ class TicTacSwing implements ActionListener {
         bt_panel.setLayout(new GridLayout(3, 3));
         bt_panel.setBackground(new Color(0, 0, 0));
 
-        for (int i = 0; i < 9; i++) {
+        for (int i = 0; i < 9; i++) 
+        {
             bton[i] = new JButton();
             bt_panel.add(bton[i]);
             bton[i].setFont(new Font("Serif", Font.BOLD, 120));
@@ -91,26 +98,33 @@ class TicTacSwing implements ActionListener {
     }
     
     // Creating method to start the game and decide the chance
-    public void startGame() {
-        try {
+    public void startGame() 
+    {
+        try 
+        {
             textfield.setText("Loading....");
             Thread.sleep(1000);
         } 
-        catch (InterruptedException e) {
+        catch (InterruptedException e) 
+        {
             e.printStackTrace();
         }
         int chance=random.nextInt(100);
 
-        if (chance%2 == 0) {
+        if (chance%2 == 0) 
+        {
             pl1_chance = true;
             textfield.setText("Player X turn");
-        } else {
+        } 
+        else 
+        {
             pl1_chance = false;
             textfield.setText("Player O turn");
         }
     }
     
-    public void gameOver(String s, boolean w) {
+    public void gameOver(String s, boolean w)
+    {
         final ImageIcon iconW = new ImageIcon("aa.png");
         final ImageIcon icon = new ImageIcon("bb.png");
         int n;
@@ -125,77 +139,131 @@ class TicTacSwing implements ActionListener {
         {
             frame.dispose();
             new TicTacSwing();
-        } else {
+        }
+        else
+        {
             frame.dispose();
         }
-    } 
-    public void matchCheck() {
-        if ((bton[0].getText() == "X") && (bton[1].getText() == "X") && (bton[2].getText() == "X")) {
+    
+    }
+
+    // Creating method for checking winning conditions 
+    public void matchCheck() 
+    {
+        if ((bton[0].getText() == "X") && (bton[1].getText() == "X") && (bton[2].getText() == "X")) 
+        {
             xWins(0, 1, 2);
-        } else if ((bton[0].getText() == "X") && (bton[4].getText() == "X") && (bton[8].getText() == "X")) {
+        }
+        else if ((bton[0].getText() == "X") && (bton[4].getText() == "X") && (bton[8].getText() == "X")) 
+        {
             xWins(0, 4, 8);
-        } else if ((bton[0].getText() == "X") && (bton[3].getText() == "X") && (bton[6].getText() == "X")) {
+        }
+        else if ((bton[0].getText() == "X") && (bton[3].getText() == "X") && (bton[6].getText() == "X")) 
+        {
             xWins(0, 3, 6);
-        } else if ((bton[1].getText() == "X") && (bton[4].getText() == "X") && (bton[7].getText() == "X")) {
+        }
+        else if ((bton[1].getText() == "X") && (bton[4].getText() == "X") && (bton[7].getText() == "X")) 
+        {
             xWins(1, 4, 7);
-        } else if ((bton[2].getText() == "X") && (bton[4].getText() == "X") && (bton[6].getText() == "X")) {
+        }
+        else if ((bton[2].getText() == "X") && (bton[4].getText() == "X") && (bton[6].getText() == "X")) 
+        {
             xWins(2, 4, 6);
-        } else if ((bton[2].getText() == "X") && (bton[5].getText() == "X") && (bton[8].getText() == "X")) {
+        }
+        else if ((bton[2].getText() == "X") && (bton[5].getText() == "X") && (bton[8].getText() == "X")) 
+        {
             xWins(2, 5, 8);
-        } else if ((bton[3].getText() == "X") && (bton[4].getText() == "X") && (bton[5].getText() == "X")) {
+        }
+       else if ((bton[3].getText() == "X") && (bton[4].getText() == "X") && (bton[5].getText() == "X")) 
+       {
             xWins(3, 4, 5);
-        } else if ((bton[6].getText() == "X") && (bton[7].getText() == "X") && (bton[8].getText() == "X")) {
+        }
+       else if ((bton[6].getText() == "X") && (bton[7].getText() == "X") && (bton[8].getText() == "X")) 
+       {
             xWins(6, 7, 8);
-        } else if ((bton[0].getText() == "O") && (bton[1].getText() == "O") && (bton[2].getText() == "O")) {
+        }
+      
+        else if ((bton[0].getText() == "O") && (bton[1].getText() == "O") && (bton[2].getText() == "O")) 
+        {
             oWins(0, 1, 2);
-        } else if ((bton[0].getText() == "O") && (bton[3].getText() == "O") && (bton[6].getText() == "O")) {
+        }
+        else if ((bton[0].getText() == "O") && (bton[3].getText() == "O") && (bton[6].getText() == "O")) 
+        {
             oWins(0, 3, 6);
-        } else if ((bton[0].getText() == "O") && (bton[4].getText() == "O") && (bton[8].getText() == "O")) {
+        }
+        else if ((bton[0].getText() == "O") && (bton[4].getText() == "O") && (bton[8].getText() == "O")) 
+        {
             oWins(0, 4, 8);
-        } else if ((bton[1].getText() == "O") && (bton[4].getText() == "O") && (bton[7].getText() == "O")) {
+        }
+        else if ((bton[1].getText() == "O") && (bton[4].getText() == "O") && (bton[7].getText() == "O")) 
+        {
             oWins(1, 4, 7);
-        } else if ((bton[2].getText() == "O") && (bton[4].getText() == "O") && (bton[6].getText() == "O")) {
+        }
+        else if ((bton[2].getText() == "O") && (bton[4].getText() == "O") && (bton[6].getText() == "O")) 
+        {
             oWins(2, 4, 6);
-        } else if ((bton[2].getText() == "O") && (bton[5].getText() == "O") && (bton[8].getText() == "O")) {
+        }
+        else if ((bton[2].getText() == "O") && (bton[5].getText() == "O") && (bton[8].getText() == "O")) 
+        {
             oWins(2, 5, 8);
-        } else if ((bton[3].getText() == "O") && (bton[4].getText() == "O") && (bton[5].getText() == "O")) {
+        }
+        else if ((bton[3].getText() == "O") && (bton[4].getText() == "O") && (bton[5].getText() == "O")) 
+        {
             oWins(3, 4, 5);
-        } else if ((bton[6].getText() == "O") && (bton[7].getText() == "O") && (bton[8].getText() == "O")) {
+        } else if ((bton[6].getText() == "O") && (bton[7].getText() == "O") && (bton[8].getText() == "O")) 
+        {
             oWins(6, 7, 8);
-        } else if(chance_flag==9) {
+        }
+        else if(chance_flag==9) 
+        {
             textfield.setText("Game Draw!!");
             winner = false;
              gameOver("It's a tie!", winner);
         }
     }
-    public void xWins(int x1, int x2, int x3) {
+
+    // Method to print that Player X wins
+    public void xWins(int x1, int x2, int x3) 
+    {
     	bton[x1].setBackground(Color.YELLOW);
         bton[x2].setBackground(Color.YELLOW);
         bton[x3].setBackground(Color.YELLOW);
 
-        for (int i = 0; i < 9; i++) {
+        for (int i = 0; i < 9; i++) 
+        {
             bton[i].setEnabled(true);
         }
         textfield.setText("Player X wins");
         gameOver("Player X Wins!", winner);
     }
-    public void oWins(int x1, int x2, int x3) {
+
+    // Method to print that Player O wins
+    public void oWins(int x1, int x2, int x3) 
+    {
         bton[x1].setBackground(Color.YELLOW);
         bton[x2].setBackground(Color.YELLOW);
         bton[x3].setBackground(Color.YELLOW);
 
-        for (int i = 0; i < 9; i++) {
+        for (int i = 0; i < 9; i++) 
+        {
             bton[i].setEnabled(false);
         }
         textfield.setText("Player O Wins");
         gameOver("Player O Wins!", winner);
     }
+    
+    // Method for performing action after every turn
     @Override
-    public void actionPerformed(ActionEvent e) {
-        for (int i = 0; i < 9; i++) {
-            if (e.getSource() == bton[i]) {
-                if (pl1_chance) {
-                    if (bton[i].getText() == "") {
+    public void actionPerformed(ActionEvent e) 
+    {
+        for (int i = 0; i < 9; i++) 
+        {
+            if (e.getSource() == bton[i]) 
+            {
+                if (pl1_chance) 
+                {
+                    if (bton[i].getText() == "") 
+                    {
                         bton[i].setForeground(new Color(31,81,255));
                         bton[i].setText("X");
                         pl1_chance = false;
@@ -203,8 +271,11 @@ class TicTacSwing implements ActionListener {
                         chance_flag++;
                         matchCheck();
                     }
-                } else {
-                    if (bton[i].getText() == "") {
+                } 
+                else 
+                {
+                    if (bton[i].getText() == "") 
+                    {
                         bton[i].setForeground(new Color(0, 255, 9));
                         bton[i].setText("O");
                         pl1_chance = true;
