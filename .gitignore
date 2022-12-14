@@ -429,9 +429,6 @@ FodyWeavers.xsd
 *.sln.iml
 
 ### Java ###
-# Compiled class file
-*.class
-
 # Log file
 
 # BlueJ files
