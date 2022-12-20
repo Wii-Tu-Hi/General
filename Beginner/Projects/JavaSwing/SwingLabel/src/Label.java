@@ -1,7 +1,7 @@
 import javax.swing.*;  
 import java.awt.*;  
 import java.awt.event.*;  
-public class Label extends Frame implements ActionListener{  
+public class Label extends JFrame implements ActionListener{  
     JTextField tf; JLabel l; JButton b;  
     Label(){  
         tf=new JTextField();  
@@ -15,6 +15,7 @@ public class Label extends Frame implements ActionListener{
         setSize(400,400);  
         setLayout(null);  
         setVisible(true);  
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }  
     public void actionPerformed(ActionEvent e) {  
         try{  
