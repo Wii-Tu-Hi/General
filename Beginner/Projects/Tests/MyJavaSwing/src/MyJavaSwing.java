@@ -13,67 +13,76 @@ public class MyJavaSwing
 
 class DylSwing implements ActionListener 
 {
-    JFrame f = new JFrame();
-    JButton[] bton = new JButton[81];
+    JFrame f = new JFrame("Sudoku Swing");
+    JButton[][] bton = new JButton[9][9];
     JPanel bt_pan = new JPanel();
 
     DylSwing() 
     {
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.setSize(1280,720);
+        f.setMinimumSize(new Dimension(500, 500));
         f.getContentPane().setBackground(new Color(250, 184, 97));
-        f.setTitle("Sudoku Swing");
         f.setLayout(new BorderLayout());
         f.setVisible(true);
 
-        bt_pan.setLayout(new GridLayout(9,9));
-        bt_pan.setBackground(new Color(0, 0, 0));
+        bt_pan.setLayout(new GridLayout(9,9,5,5));
+        bt_pan.setBackground(new Color(0,0,0));
 
-        for (int i = 0; i < 81; i++) 
+        for (int i = 0; i < 9; i++) 
         {
-            bton[i] = new JButton();
-            bt_pan.add(bton[i]);
-            bton[i].setFont(new Font("Serif", Font.BOLD, 80));
-            bton[i].setFocusable(false);
-            bton[i].setBackground(Color.black);
-            bton[i].setForeground(Color.white);
-            bton[i].addActionListener(this);
-            bton[i].addMouseListener(new MouseListener()
-            {   
-                public void mouseClicked(MouseEvent e) 
-                {  
-                }
+            for (int j = 0; j < 9; j++)
+            {
+                bton[i][j] = new JButton();
+                bt_pan.add(bton[i][j]);
+                bton[i][j].setFont(new Font("Serif", Font.BOLD, 80));
+                bton[i][j].setFocusable(false);
+                bton[i][j].setBackground(Color.darkGray);
+                bton[i][j].setForeground(Color.white);
+                bton[i][j].setBorder(BorderFactory.createRaisedBevelBorder());
+                bton[i][j].addActionListener(this);
+                bton[i][j].addMouseListener(new MouseListener()
+                {   
+                    public void mouseClicked(MouseEvent e) 
+                    {  
+                    }
 
-                public void mousePressed(MouseEvent e) 
-                {
-                }
-
-                public void mouseReleased(MouseEvent e) 
-                {
-                }
-
-                public void mouseEntered(MouseEvent e) 
-                {
-                    for(int i=0; i < 81; i++)
+                    public void mousePressed(MouseEvent e) 
                     {
-                        if(e.getSource()==bton[i])
+                    }
+
+                    public void mouseReleased(MouseEvent e) 
+                    {
+                    }
+
+                    public void mouseEntered(MouseEvent e) 
+                    {
+                        for(int i=0; i < 9; i++)
                         {
-                            bton[i].setBackground(Color.DARK_GRAY);
+                            for(int j=0; j < 9; j++)
+                            {
+                                if(e.getSource() == bton[i][j])
+                                {
+                                    bton[i][j].setBackground(Color.lightGray);
+                                }
+                            }
                         }
                     }
-                }
 
-                public void mouseExited(MouseEvent e) 
-                {
-                    for(int i=0; i < 81; i++)
+                    public void mouseExited(MouseEvent e) 
                     {
-                        if(e.getSource()==bton[i])
+                        for(int i=0; i < 9; i++)
                         {
-                            bton[i].setBackground(Color.black);
+                            for(int j=0; j < 9; j++)
+                            {
+                                if(e.getSource() == bton[i][j])
+                                {
+                                    bton[i][j].setBackground(Color.darkGray);
+                                }
+                            }
                         }
                     }
-                }
-            });
+                });
+            }
         }
         
         f.add(bt_pan);
@@ -93,52 +102,55 @@ class DylSwing implements ActionListener
 
     public void actionPerformed(ActionEvent e) 
     {
-        for(int i=0; i<81; i++)
+        for(int i=0; i < 9; i++)
         {
-            if(e.getSource() == bton[i])
+            for(int j=0; j < 9; j++)
             {
-                txtCheck(i);
+                if(e.getSource() == bton[i][j])
+                {
+                    txtCheck(i, j);
+                }
             }
         }
     }
 
-    public void txtCheck(int i) 
+    public void txtCheck(int i, int j) 
     {
-        if(bton[i].getText() == "" || bton[i].getText() == "9")
+        if(bton[i][j].getText() == "" || bton[i][j].getText() == "9")
         {
-            bton[i].setText("1");
+            bton[i][j].setText("1");
         } 
-        else if (bton[i].getText() == "1")
+        else if (bton[i][j].getText() == "1")
         {
-            bton[i].setText("2");
+            bton[i][j].setText("2");
         }
-        else if(bton[i].getText() == "2")
+        else if(bton[i][j].getText() == "2")
         {
-            bton[i].setText("3");
+            bton[i][j].setText("3");
         }
-        else if(bton[i].getText() == "3")
+        else if(bton[i][j].getText() == "3")
         {
-            bton[i].setText("4");
+            bton[i][j].setText("4");
         }
-        else if(bton[i].getText() == "4")
+        else if(bton[i][j].getText() == "4")
         {
-            bton[i].setText("5");
+            bton[i][j].setText("5");
         }
-        else if(bton[i].getText() == "5")
+        else if(bton[i][j].getText() == "5")
         {
-            bton[i].setText("6");
+            bton[i][j].setText("6");
         }
-        else if(bton[i].getText() == "6")
+        else if(bton[i][j].getText() == "6")
         {
-            bton[i].setText("7");
+            bton[i][j].setText("7");
         }
-        else if(bton[i].getText() == "7")
+        else if(bton[i][j].getText() == "7")
         {
-            bton[i].setText("8");
+            bton[i][j].setText("8");
         }
-        else if(bton[i].getText() == "8")
+        else if(bton[i][j].getText() == "8")
         {
-            bton[i].setText("9");
+            bton[i][j].setText("9");
         }
     }
 }
