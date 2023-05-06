@@ -239,18 +239,15 @@ public class DyliciousSudoku implements ActionListener
         // checking row sums
         for (int i=0; i < 9; i++)
         {
-            if (i == 8)
+            if (doubleSums[i][0] == doubleSums[0][0])
             {
-                if (doubleSums[i][0] == doubleSums[0][0])
-                {
-                    repeats = true;
-                }
-            } else
+                repeats = true;
+            } else if (doubleSums[i][0] == doubleSums[1][0])
             {
-                if (doubleSums[i][0] == doubleSums[(i+1)][0]) // need to rework to check every instance of doubleSums
-                {
-                    repeats = true;
-                }
+                repeats = true;
+            } else if (doubleSums[i][0] == doubleSums[2][0])
+            {
+                abc; 
             }
         }
 
