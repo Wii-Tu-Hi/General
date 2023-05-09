@@ -17,8 +17,9 @@ public class DyliciousSudoku implements ActionListener
     boolean repeats;
     String B, C, D;
     int b, c, d, b1, c1, d1, b2, c2, d2;
-    Double[][] buttonDouble;
-    Double[][] doubleSums;
+    double[][] buttonDouble;
+    double[][] doubleSums;
+    int[][] doubleInt;
 
     public static void main(String[] args) 
     {
@@ -90,9 +91,9 @@ public class DyliciousSudoku implements ActionListener
         startGame();
     }
 
-    public void startGame()
+    public void startGame() // handles the spots which are grayed out
     {
-        int a = JOptionPane.showConfirmDialog(frame, "Ready to start a game of Sudoku?", "New Game?", JOptionPane.YES_NO_OPTION);
+        int a = JOptionPane.showConfirmDialog(frame, "Ready to start?", "Welcome", JOptionPane.YES_NO_OPTION);
         if (a == JOptionPane.NO_OPTION)
         {
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -182,8 +183,20 @@ public class DyliciousSudoku implements ActionListener
                     eraseBoard();
                     startGame();
                 }
+            } else
+            {
+                int a = JOptionPane.showConfirmDialog(frame, "No repeating numbers, you win! " + "New Game?", "Congrats", JOptionPane.YES_NO_OPTION);
+                if (a == JOptionPane.YES_OPTION)
+                {
+                    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    eraseBoard();
+                    startGame();
+                } else
+                {
+                    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    frame.dispose();
+                }
             }
-            JOptionPane.showMessageDialog(frame, "No repeats! You win!", "Winner!", JOptionPane.DEFAULT_OPTION);
         }
     }
 
@@ -191,7 +204,7 @@ public class DyliciousSudoku implements ActionListener
     {
         repeats = false;
         buttonString = new String[9][9];
-        buttonDouble = new Double[9][9];
+        buttonDouble = new double[9][9];
 
         for (int i=0; i < 9; i++)
         {
@@ -203,7 +216,7 @@ public class DyliciousSudoku implements ActionListener
         }
 
         // sum rows
-        doubleSums = new Double[9][3];
+        doubleSums = new double[9][3];
         doubleSums[0][0] = buttonDouble[0][0] + buttonDouble[0][1] + buttonDouble[0][2] + buttonDouble[0][3] + buttonDouble[0][4] + buttonDouble[0][5] + buttonDouble[0][6] + buttonDouble[0][7] + buttonDouble[0][8];
         doubleSums[1][0] = buttonDouble[1][0] + buttonDouble[1][1] + buttonDouble[1][2] + buttonDouble[1][3] + buttonDouble[1][4] + buttonDouble[1][5] + buttonDouble[1][6] + buttonDouble[1][7] + buttonDouble[1][8];
         doubleSums[2][0] = buttonDouble[2][0] + buttonDouble[2][1] + buttonDouble[2][2] + buttonDouble[2][3] + buttonDouble[2][4] + buttonDouble[2][5] + buttonDouble[2][6] + buttonDouble[2][7] + buttonDouble[2][8];
@@ -236,53 +249,201 @@ public class DyliciousSudoku implements ActionListener
         doubleSums[7][2] = buttonDouble[6][3] + buttonDouble[6][4] + buttonDouble[6][5] + buttonDouble[7][3] + buttonDouble[7][4] + buttonDouble[7][5] + buttonDouble[8][3] + buttonDouble[8][4] + buttonDouble[8][5];
         doubleSums[8][2] = buttonDouble[6][6] + buttonDouble[6][7] + buttonDouble[6][8] + buttonDouble[7][6] + buttonDouble[7][7] + buttonDouble[7][8] + buttonDouble[8][6] + buttonDouble[8][7] + buttonDouble[8][8];
 
-        // checking row sums
-        for (int i=0; i < 9; i++)
+        // convert to integer, arithmetic wasn't agreeing with doubles
+        doubleInt = new int[9][3];
+        for (int i = 0; i < 9; i++)
         {
-            if (doubleSums[i][0] == doubleSums[0][0])
+            for (int j = 0; j < 3; j++)
             {
-                repeats = true;
-            } else if (doubleSums[i][0] == doubleSums[1][0])
+                doubleInt[i][j] = (int) doubleSums[i][j];
+            }
+        }
+
+        // checking row sums
+        if (!repeats)
+        {
+            for (int i=0; i < 9; i++)
             {
-                repeats = true;
-            } else if (doubleSums[i][0] == doubleSums[2][0])
-            {
-                abc; 
+                if (i != 0)
+                {
+                    if (doubleInt[i][0] == doubleInt[0][0])
+                    {
+                        repeats = true;
+                    }
+                } else if (i != 1)
+                {
+                    if (doubleInt[i][0] == doubleInt[1][0])
+                    {
+                        repeats = true;
+                    }
+                } else if (i != 2)
+                {
+                    if (doubleInt[i][0] == doubleInt[2][0])
+                    {
+                        repeats = true;
+                    }
+                } else if (i != 3)
+                {
+                    if (doubleInt[i][0] == doubleInt[3][0])
+                    {
+                        repeats = true;
+                    }
+                } else if (i != 4)
+                {
+                    if (doubleInt[i][0] == doubleInt[4][0])
+                    {
+                        repeats = true;
+                    }
+                } else if (i != 5)
+                {
+                    if (doubleInt[i][0] == doubleInt[5][0])
+                    {
+                        repeats = true;
+                    }
+                } else if (i != 6)
+                {
+                    if (doubleInt[i][0] == doubleInt[6][0])
+                    {
+                        repeats = true;
+                    }
+                } else if (i != 7)
+                {
+                    if (doubleInt[i][0] == doubleInt[7][0])
+                    {
+                        repeats = true;
+                    }
+                } else if (i != 8)
+                {
+                    if (doubleInt[i][0] == doubleInt[8][0])
+                    {
+                        repeats = true;
+                    }
+                }
             }
         }
 
         // checking column sums
-        for (int i=0; i < 9; i++)
+        if (!repeats)
         {
-            if (i == 8)
+            for (int i=0; i < 9; i++)
             {
-                if (doubleSums[i][1] == doubleSums[0][1])
+                if (i != 0)
                 {
-                    repeats = true;
-                }
-            } else
-            {
-                if (doubleSums[i][1] == doubleSums[(i+1)][1])
+                    if (doubleInt[i][1] == doubleInt[0][1])
+                    {
+                        repeats = true;
+                    }
+                } else if (i != 1)
                 {
-                    repeats = true;
+                    if (doubleInt[i][1] == doubleInt[1][1])
+                    {
+                        repeats = true;
+                    }
+                } else if (i != 2)
+                {
+                    if (doubleInt[i][1] == doubleInt[2][1])
+                    {
+                        repeats = true;
+                    }
+                } else if (i != 3)
+                {
+                    if (doubleInt[i][1] == doubleInt[3][1])
+                    {
+                        repeats = true;
+                    }
+                } else if (i != 4)
+                {
+                    if (doubleInt[i][1] == doubleInt[4][1])
+                    {
+                        repeats = true;
+                    }
+                } else if (i != 5)
+                {
+                    if (doubleInt[i][1] == doubleInt[5][1])
+                    {
+                        repeats = true;
+                    }
+                } else if (i != 6)
+                {
+                    if (doubleInt[i][1] == doubleInt[6][1])
+                    {
+                        repeats = true;
+                    }
+                } else if (i != 7)
+                {
+                    if (doubleInt[i][1] == doubleInt[7][1])
+                    {
+                        repeats = true;
+                    }
+                } else if (i != 8)
+                {
+                    if (doubleInt[i][1] == doubleInt[8][1])
+                    {
+                        repeats = true;
+                    }
                 }
             }
         }
 
         // checking box sums
-        for (int i=0; i < 9; i++)
+        if (!repeats)
         {
-            if (i == 8)
+            for (int i=0; i < 9; i++)
             {
-                if (doubleSums[i][2] == doubleSums[0][2])
+                if (i != 0)
                 {
-                    repeats = true;
-                }
-            } else
-            {
-                if (doubleSums[i][2] == doubleSums[(i+1)][2])
+                    if (doubleInt[i][2] == doubleInt[0][2])
+                    {
+                        repeats = true;
+                    }
+                } else if (i != 1)
                 {
-                    repeats = true;
+                    if (doubleInt[i][2] == doubleInt[1][2])
+                    {
+                        repeats = true;
+                    }
+                } else if (i != 2)
+                {
+                    if (doubleInt[i][2] == doubleInt[2][2])
+                    {
+                        repeats = true;
+                    }
+                } else if (i != 3)
+                {
+                    if (doubleInt[i][2] == doubleInt[3][2])
+                    {
+                        repeats = true;
+                    }
+                } else if (i != 4)
+                {
+                    if (doubleInt[i][2] == doubleInt[4][2])
+                    {
+                        repeats = true;
+                    }
+                } else if (i != 5)
+                {
+                    if (doubleInt[i][2] == doubleInt[5][2])
+                    {
+                        repeats = true;
+                    }
+                } else if (i != 6)
+                {
+                    if (doubleInt[i][2] == doubleInt[6][2])
+                    {
+                        repeats = true;
+                    }
+                } else if (i != 7)
+                {
+                    if (doubleInt[i][2] == doubleInt[7][2])
+                    {
+                        repeats = true;
+                    }
+                } else if (i != 8)
+                {
+                    if (doubleInt[i][2] == doubleInt[8][2])
+                    {
+                        repeats = true;
+                    }
                 }
             }
         }
